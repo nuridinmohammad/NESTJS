@@ -1,9 +1,17 @@
-import { SubscribeMessage, WebSocketGateway } from '@nestjs/websockets';
+import {
+  MessageBody,
+  SubscribeMessage,
+  WebSocketGateway,
+  WebSocketServer,
+} from '@nestjs/websockets';
 
 @WebSocketGateway(8001, { cors: '*' })
 export class ChatGateway {
+  @WebSocketServer()
+  server;
   @SubscribeMessage('message')
-  handleMessage(client: any, payload: any): string {
-    return 'Hello world!';
+  handleMessage(@MessageBody() message: string): void {
+    console.log(message);
+    this.server?.emit('message', message);
   }
 }
