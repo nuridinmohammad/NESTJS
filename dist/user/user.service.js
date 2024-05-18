@@ -23,6 +23,9 @@ let UserService = class UserService {
             const oldUser = await this.prisma.user.findUnique({
                 where: { id: userId },
             });
+            if (!oldUser) {
+                throw new common_1.HttpException('User not found!', common_1.HttpStatus.NOT_FOUND);
+            }
             const updatedUser = await this.prisma.user.update({
                 where: { id: userId },
                 data: {

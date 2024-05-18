@@ -16,6 +16,7 @@ async function bootstrap() {
             'Content-Type',
             'X-Requested-With',
             'apollo-require-preflight',
+            'cookie',
         ],
         methods: ['GET', 'PUT', 'POST', 'DELETE', 'OPTIONS'],
     });

@@ -20,7 +20,7 @@ let GraphqlAuthGuard = class GraphqlAuthGuard {
     }
     async canActivate(context) {
         const gqlCtx = context.getArgByIndex(2);
-        const request = gqlCtx.req;
+        const request = gqlCtx?.req;
         const token = this.extractTokenFromCookie(request);
         if (!token) {
             throw new common_1.UnauthorizedException();

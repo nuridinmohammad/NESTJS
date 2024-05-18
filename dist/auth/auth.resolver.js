@@ -38,6 +38,9 @@ let AuthResolver = class AuthResolver {
     async logout(context) {
         return this.authService.logout(context.res);
     }
+    async hello() {
+        return 'hello';
+    }
     async refreshToken(context) {
         try {
             return this.authService.refreshToken(context.req, context.res);
@@ -45,9 +48,6 @@ let AuthResolver = class AuthResolver {
         catch (error) {
             throw new common_1.BadRequestException(error.message);
         }
-    }
-    async hello() {
-        return 'hello';
     }
 };
 exports.AuthResolver = AuthResolver;
@@ -75,18 +75,18 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], AuthResolver.prototype, "logout", null);
 __decorate([
+    (0, graphql_1.Query)(() => String),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], AuthResolver.prototype, "hello", null);
+__decorate([
     (0, graphql_1.Mutation)(() => String),
     __param(0, (0, graphql_1.Context)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], AuthResolver.prototype, "refreshToken", null);
-__decorate([
-    (0, graphql_1.Query)(() => String),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", Promise)
-], AuthResolver.prototype, "hello", null);
 exports.AuthResolver = AuthResolver = __decorate([
     (0, common_1.UseFilters)(custom_exception_filter_1.GraphQLErrorFilter),
     (0, graphql_1.Resolver)(),

@@ -22,7 +22,7 @@ let AuthService = class AuthService {
         this.configService = configService;
     }
     async refreshToken(req, res) {
-        const refreshToken = req.cookies['refresh_token'];
+        const refreshToken = req?.cookies['refresh_token'];
         if (!refreshToken) {
             throw new common_1.UnauthorizedException('Refresh token not found');
         }
@@ -46,7 +46,7 @@ let AuthService = class AuthService {
         const accessToken = this.jwtService.sign({ ...payload, exp: expiration }, {
             secret: this.configService.get('ACCESS_TOKEN_SECRET'),
         });
-        res.cookie('access_token', accessToken, { httpOnly: true });
+        res?.cookie('access_token', accessToken, { httpOnly: true });
         return accessToken;
     }
     async issueTokens(user, response) {
@@ -59,11 +59,11 @@ let AuthService = class AuthService {
             secret: this.configService.get('REFRESH_TOKEN_SECRET'),
             expiresIn: '7d',
         });
-        response.cookie('access_token', accessToken, { httpOnly: true });
-        response.cookie('refresh_token', refreshToken, {
+        response?.cookie('access_token', accessToken, { httpOnly: true });
+        response?.cookie('refresh_token', refreshToken, {
             httpOnly: true,
         });
-        return { user };
+        return { user, accessToken, refreshToken };
     }
     async validateUser(loginDto) {
         const user = await this.prisma.user.findUnique({
@@ -98,11 +98,12 @@ let AuthService = class AuthService {
                 invalidCredentials: 'Invalid credentials',
             });
         }
+        console.log(this.issueTokens(user, response));
         return this.issueTokens(user, response);
     }
     async logout(response) {
-        response.clearCookie('access_token');
-        response.clearCookie('refresh_token');
+        response?.clearCookie('access_token');
+        response?.clearCookie('refresh_token');
         return 'Successfully logged out';
     }
 };

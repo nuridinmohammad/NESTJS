@@ -38,6 +38,11 @@ export class AuthResolver {
     return this.authService.logout(context.res);
   }
 
+  @Query(() => String)
+  async hello() {
+    return 'hello';
+  }
+
   @Mutation(() => String)
   async refreshToken(@Context() context: { req: Request; res: Response }) {
     try {
@@ -45,10 +50,5 @@ export class AuthResolver {
     } catch (error) {
       throw new BadRequestException(error.message);
     }
-  }
-
-  @Query(() => String)
-  async hello() {
-    return 'hello';
   }
 }

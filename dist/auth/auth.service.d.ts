@@ -34,6 +34,8 @@ export declare class AuthService {
             createdAt: Date;
             updatedAt: Date;
         };
+        accessToken: string;
+        refreshToken: string;
     }>;
     login(loginDto: LoginDto, response: Response): Promise<{
         user: {
@@ -47,6 +49,8 @@ export declare class AuthService {
             createdAt: Date;
             updatedAt: Date;
         };
+        accessToken: string;
+        refreshToken: string;
     }>;
     logout(response: Response): Promise<string>;
 }

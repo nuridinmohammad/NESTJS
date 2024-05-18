@@ -34,13 +34,15 @@ export declare class AuthResolver {
             createdAt: Date;
             updatedAt: Date;
         };
+        accessToken: string;
+        refreshToken: string;
     }>;
     logout(context: {
         res: Response;
     }): Promise<string>;
+    hello(): Promise<string>;
     refreshToken(context: {
         req: Request;
         res: Response;
     }): Promise<string>;
-    hello(): Promise<string>;
 }
